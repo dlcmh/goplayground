@@ -40,4 +40,19 @@ task :db_setup do
   SQL
   p cmd
   `#{cmd}`
+
+  content = [
+    "I hope you enjoyed the last blog post!",
+    "Well brace yourself, because my latest post is even",
+    "<i>better</i> than the last!",
+  ].join(' ')
+  cmd = <<~SQL
+  psql -d goplayground -c "
+    INSERT INTO pages (guid, title, content, published_on)
+    VALUES
+      ('a-new-blog', 'A New Blog Post', '#{content}', NOW());
+  "
+  SQL
+  p cmd
+  `#{cmd}`
 end
